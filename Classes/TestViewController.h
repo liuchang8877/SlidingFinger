@@ -28,5 +28,6 @@
 - (void) addAllView: (NSNumber *) count;
 - (void) scrollToBottomAnimated: (BOOL) animated;
 - (void) handleTimer;
+- (void) exitAll;
 @end
 

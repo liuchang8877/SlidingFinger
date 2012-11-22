@@ -35,7 +35,7 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
     UIButton* button = [UIButton buttonWithType: UIButtonTypeCustom];
     button.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [button setTitle: @"Out" forState: UIControlStateNormal];
-   // [button addTarget: self action: @selector(addView:) forControlEvents: UIControlEventTouchUpInside];
+    [button addTarget: self action: @selector(exitAll) forControlEvents: UIControlEventTouchUpInside];
     button.backgroundColor = [UIColor colorWithRed: 0.75 green: 0.2 blue: 0 alpha: 1.0];
     button.layer.cornerRadius = 5.0;
     button.showsTouchWhenHighlighted = YES;
@@ -382,6 +382,7 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
             flagWin = YES;
         }
         
+        //times up
         if (leftTime == 0)
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YOU failure" message:@"YOU LOSE THE GAME!SO BAD!" delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
@@ -393,4 +394,32 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
     }
 }
 
+-(void) exitAll
+{
+    //use for 
+    UIActionSheet *menu = [[UIActionSheet alloc]
+                           initWithTitle: @"DO YOU WANT TO OUT?"
+                           delegate:(id)self
+                           cancelButtonTitle:@"DO YOU WANT TO OUT?"
+                           destructiveButtonTitle:nil
+                           otherButtonTitles:@"Out",@"No", nil];
+    
+    menu.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    //UIActionSheetStyleDefault 
+    //UIActionSheetStyleBlackTranslucent
+    [menu showInView:self.view];
+
+}
+
+# pragma mark UIActionSheet method
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==0) {
+           exit(0);    //out
+    }else if(buttonIndex==1){
+            //do nothing
+    }
+    
+    [actionSheet release];
+}
 @end

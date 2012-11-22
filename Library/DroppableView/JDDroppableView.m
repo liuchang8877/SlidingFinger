@@ -142,9 +142,9 @@
 	
 	CGRect intersect = CGRectIntersection(self.frame, mDropTarget.frame);
 	if (intersect.size.width > 10 || intersect.size.height > 10) {
-        if([self handleDroppedView]) {
+        //if([self handleDroppedView]) {
             return;
-        }
+        //}
 	}
 
 	[self changeSuperView];
