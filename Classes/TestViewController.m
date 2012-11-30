@@ -4,12 +4,11 @@
 //
 //  Created by liu on 12-11-21.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import "TestViewController.h"
 #import "JDDroppableView.h"
 #import "UserScore.h"
-#import <QuartzCore/QuartzCore.h>
-
+#import "JDGroupedFlipNumberView.h"
 
 // setup view vars
 static NSInteger sDROPVIEW_MARGIN = 3.8;                   // margin
@@ -23,13 +22,42 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
 - (void)loadView
 {
 	[super loadView];
-    self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
-    
+    //self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
     // increase viewcount on ipad
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         sCOUNT_OF_VIEWS_HORICONTALLY = 5.9;
         sCOUNT_OF_VIEWS_VERTICALLY   = 4.3;
-    }
+    } 
+    
+    //add the FlipNumber  for the time
+    flipViewTime = [[JDGroupedFlipNumberView alloc] initWithFlipNumberViewCount: 4];
+    flipViewTime.intValue = 20;
+    flipViewTime.tag = 99;
+    //[flipView setDirection:0];
+    [self.view addSubview: flipViewTime];
+    //set the FlipNumber size and location
+    UIView* viewTime = [[self.view subviews] objectAtIndex: 0];
+    viewTime.frame = CGRectMake(0, 0, 200, 200);
+    viewTime.center = CGPointMake(self.view.frame.size.width /2+220,
+                              (self.view.frame.size.height/9)+790);
+    [flipViewTime animateDownWithTimeInterval: 1.0];
+    //[flipView animateUpWithTimeInterval: 1];
+    
+    //add the FlipNumber for the score
+    flipViewScore = [[JDGroupedFlipNumberView alloc] initWithFlipNumberViewCount: 4];
+    flipViewScore.intValue = 20;
+    flipViewScore.tag = 99;
+    //[flipView setDirection:0];
+    [self.view addSubview: flipViewScore];
+    //set the FlipNumber size and location
+    UIView* viewScore = [[self.view subviews] objectAtIndex: 1];
+    viewScore.frame = CGRectMake(0, 0, 200, 200);
+    viewScore.center = CGPointMake(self.view.frame.size.width /2-160,
+                              (self.view.frame.size.height/9)+790);
+    //[flipViewScore animateDownWithTimeInterval: 1.0];
+    [flipViewScore animateUpWithTimeInterval: 1.0];
+    
     
     // add button
     UIButton* button = [UIButton buttonWithType: UIButtonTypeCustom];
@@ -40,7 +68,7 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
     button.layer.cornerRadius = 5.0;
     button.showsTouchWhenHighlighted = YES;
     button.adjustsImageWhenHighlighted = YES;
-    button.frame = CGRectMake(20,
+    button.frame = CGRectMake(12,
                               self.view.frame.size.height - 52,
                               self.view.frame.size.width - 40, // width
                               32); // height
@@ -95,20 +123,20 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
     
     //add the scoreLabel
     scoreLabel = [[UILabel alloc]init];
-    scoreLabel.frame = CGRectMake(0, 0, 280, 50);
-    scoreLabel.text  = @"YourScore: 00";
+    scoreLabel.frame = CGRectMake(0, 0, 100, 50);
+    scoreLabel.text  = @"YourScore:";
     scoreLabel.textAlignment = UITextAlignmentCenter;
-    scoreLabel.center = CGPointMake(self.view.frame.size.width/2-220, button.frame.origin.y - 50);
-    scoreLabel.backgroundColor = [UIColor orangeColor];
+    scoreLabel.center = CGPointMake(self.view.frame.size.width/2-310, button.frame.origin.y - 50);
+    scoreLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:scoreLabel];
     
     //add the timeLabel
     timeLabel = [[UILabel alloc]init];
-    timeLabel.frame = CGRectMake(0, 0, 280, 50);
-    timeLabel.text  = @"LeftTime: 500s";
+    timeLabel.frame = CGRectMake(0, 0, 80, 50);
+    timeLabel.text  = @"LeftTime:";
     timeLabel.textAlignment = UITextAlignmentCenter;
-    timeLabel.center = CGPointMake(self.view.frame.size.width/2+220, button.frame.origin.y - 50);
-    timeLabel.backgroundColor = [UIColor orangeColor];
+    timeLabel.center = CGPointMake(self.view.frame.size.width/2+70, button.frame.origin.y - 50);
+    timeLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:timeLabel];
     
     //init the myScore
@@ -333,8 +361,8 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
     if(newScore < 99) {
         [myScore setScore:newScore+11];
         newScore += 11;
-        NSString * myNewScore = [[NSString alloc] initWithFormat:@"YourScore:%d",[myScore Score]];
-        scoreLabel.text =myNewScore;
+        //NSString * myNewScore = [[NSString alloc] initWithFormat:@"YourScore:%d",[myScore Score]];
+        //scoreLabel.text =myNewScore;
         [self.view addSubview:scoreLabel];
     }   
     return NO;
@@ -365,16 +393,16 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
 	[UIView beginAnimations: @"drag" context: nil];
 	view.backgroundColor = [UIColor blackColor];
 	view.alpha = 1.0;
-	[UIView commitAnimations];
+	[UIView commitAnimations]; 
 }
 
 - (void) handleTimer
 {
     //reset mylefttime
     if (!flagWin) {
-        leftTime -= 1;
-        NSString *myTime = [NSString stringWithFormat:@"YourLeftTime: %ds",leftTime];
-        timeLabel.text = myTime;
+//        leftTime -= 1;
+//        NSString *myTime = [NSString stringWithFormat:@"YourLeftTime: %ds",leftTime];
+//        timeLabel.text = myTime;
         if (newScore == 99)
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YOU WIN" message:@"YOU WIN THE GAME!SO COOL!" delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
@@ -383,12 +411,15 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
         }
         
         //times up
-        if (leftTime == 0)
+        if (flipViewTime.intValue == 0)
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YOU failure" message:@"YOU LOSE THE GAME!SO BAD!" delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
             [alert show];
             flagWin = YES;
-    
+            [flipViewTime stopAnimation];
+            //flipView.intValue = 11;
+            [flipViewTime reloadInputViews];
+            //[flipView setIntValue:111];
         }
         
     }

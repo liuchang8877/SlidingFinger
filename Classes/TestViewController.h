@@ -8,6 +8,7 @@
 
 #import "JDDroppableView.h"
 @class  UserScore;
+@class JDGroupedFlipNumberView;
 @interface TestViewController : UIViewController <JDDroppableViewDelegate>
 {
     UIScrollView* mScrollView;
@@ -21,6 +22,9 @@
     int   newScore;
     int   leftTime;
     BOOL  flagWin;
+    
+    JDGroupedFlipNumberView *flipViewTime;
+    JDGroupedFlipNumberView *flipViewScore;
 }
 
 - (void) relayout;
