@@ -388,7 +388,14 @@ static NSString* kFlipAnimationKey = @"kFlipAnimationKey";
 	}
 }
 
-
+//--add manual up the FlipNumber
+-(void) manualUp
+{
+    [self stopAnimation];
+    //[delegate respondsToSelector: @selector(animateToNextNumber)];
+    [self animateToNextNumber];
+    
+}
 #pragma mark -
 #pragma mark timed animation
 
@@ -434,7 +441,7 @@ static NSString* kFlipAnimationKey = @"kFlipAnimationKey";
 
 - (NSUInteger) nextValue
 {
-	return [self validValueFromInt: mCurrentValue+5];
+	return [self validValueFromInt: mCurrentValue+1];
 }
 
 - (NSUInteger) previousValue

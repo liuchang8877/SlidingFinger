@@ -63,6 +63,9 @@ typedef enum
 - (void) animateToPreviousNumber;
 - (void) animateToPreviousNumberWithDuration: (CGFloat) duration;
 
+// add the manual
+-(void) manualUp;
+
 // timed animation
 - (void) animateUpWithTimeInterval: (NSTimeInterval) timeInterval;
 - (void) animateDownWithTimeInterval: (NSTimeInterval) timeInterval;

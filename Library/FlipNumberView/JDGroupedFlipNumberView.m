@@ -146,6 +146,17 @@
 	[view animateToPreviousNumber];
 }
 
+// add
+- (void) animateUp
+{
+    [self stopAnimation];
+    mCurrentDirection = eFlipDirectionUp;
+    
+    JDFlipNumberView* view = (JDFlipNumberView*)[mFlipNumberViews lastObject];
+	[view manualUp];
+
+}
+
 #pragma mark -
 #pragma mark timed animation
 

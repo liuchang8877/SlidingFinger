@@ -32,7 +32,7 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
     
     //add the FlipNumber  for the time
     flipViewTime = [[JDGroupedFlipNumberView alloc] initWithFlipNumberViewCount: 4];
-    flipViewTime.intValue = 20;
+    flipViewTime.intValue = 500;
     flipViewTime.tag = 99;
     //[flipView setDirection:0];
     [self.view addSubview: flipViewTime];
@@ -46,7 +46,7 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
     
     //add the FlipNumber for the score
     flipViewScore = [[JDGroupedFlipNumberView alloc] initWithFlipNumberViewCount: 4];
-    flipViewScore.intValue = 20;
+    flipViewScore.intValue = 0;
     flipViewScore.tag = 99;
     //[flipView setDirection:0];
     [self.view addSubview: flipViewScore];
@@ -56,7 +56,8 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
     viewScore.center = CGPointMake(self.view.frame.size.width /2-160,
                               (self.view.frame.size.height/9)+790);
     //[flipViewScore animateDownWithTimeInterval: 1.0];
-    [flipViewScore animateUpWithTimeInterval: 1.0];
+    //[flipViewScore animateUpWithTimeInterval: 1.0];
+    //[flipViewScore animateUp];
     
     
     // add button
@@ -358,13 +359,14 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
 //    [self relayout];
 //    [mScrollView flashScrollIndicators];
     
-    if(newScore < 99) {
-        [myScore setScore:newScore+11];
-        newScore += 11;
+    if(flipViewScore.intValue < 9) {
+        //[myScore setScore:newScore+11];
+        //newScore += 11;
         //NSString * myNewScore = [[NSString alloc] initWithFormat:@"YourScore:%d",[myScore Score]];
         //scoreLabel.text =myNewScore;
-        [self.view addSubview:scoreLabel];
-    }   
+        //[self.view addSubview:scoreLabel];
+        [flipViewScore animateUp];
+    }
     return NO;
 }
 
@@ -403,11 +405,12 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
 //        leftTime -= 1;
 //        NSString *myTime = [NSString stringWithFormat:@"YourLeftTime: %ds",leftTime];
 //        timeLabel.text = myTime;
-        if (newScore == 99)
+        if ( flipViewScore.intValue == 9)
         {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"YOU WIN" message:@"YOU WIN THE GAME!SO COOL!" delegate:self cancelButtonTitle:@"ok" otherButtonTitles: nil];
             [alert show];
             flagWin = YES;
+            [flipViewTime stopAnimation];
         }
         
         //times up
@@ -418,7 +421,7 @@ static CGFloat   sCOUNT_OF_VIEWS_VERTICALLY   = 2.7;
             flagWin = YES;
             [flipViewTime stopAnimation];
             //flipView.intValue = 11;
-            [flipViewTime reloadInputViews];
+            //[flipViewTime reloadInputViews];
             //[flipView setIntValue:111];
         }
         

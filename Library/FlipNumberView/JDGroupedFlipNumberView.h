@@ -37,6 +37,9 @@
 - (void) animateToNextNumber;
 - (void) animateToPreviousNumber;
 
+// add the
+- (void) animateUp;
+
 // timed animation
 - (void) animateUpWithTimeInterval: (NSTimeInterval) timeInterval;
 - (void) animateDownWithTimeInterval: (NSTimeInterval) timeInterval;
