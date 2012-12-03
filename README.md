@@ -15,6 +15,11 @@ I just add
 
 I have move out the view add and delete method
 
+//--- 2012.12.3
+SlidingFinger is a puzzle game, through the image splicing, 
+make children's external things have a more intuitive concept, 
+then the children's intelligence development, in order to achieve them.
+
 I am so glad to see  you can use my code for your app.
 
                                   Thank you.
