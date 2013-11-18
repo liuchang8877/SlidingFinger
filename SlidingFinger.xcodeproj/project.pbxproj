@@ -461,7 +461,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SupportingFiles/Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = SlidingFinger;
 				WRAPPER_EXTENSION = app;
 			};
